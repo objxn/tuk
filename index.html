@@ -505,8 +505,8 @@
     .hero-content { padding: 0 1rem; }
     .hero-title { font-size: clamp(3rem, 14vw, 5rem) !important; }
     .hero-subtitle { font-size: 0.95rem !important; line-height: 1.55 !important; max-width: 88vw; margin: 0 auto; }
-    .hero-eyebrow { font-size: 0.58rem !important; letter-spacing: 0.18em !important; color: #e08058 !important; display: flex !important; gap: 0.4rem !important; }
-    .hero-content { padding-top: 7rem !important; }
+    .hero-eyebrow { font-size: 0.52rem !important; letter-spacing: 0.12em !important; color: #e08058 !important; display: flex !important; gap: 0.3rem !important; white-space: nowrap; }
+    .hero-content { padding-top: 5.5rem !important; }
     .hero-eyebrow { font-size: 0.7rem !important; }
     .hero-tags { gap: 0.75rem; }
     .hero-tag { font-size: 0.7rem !important; }
@@ -526,7 +526,9 @@
     .divider { padding: 0 1rem; }
     .divider-mark { font-size: 0.7rem !important; }
     .btn-submit { padding: 0.9rem 1.75rem; font-size: 0.75rem !important; }
-    footer { padding: 1rem; }
+    footer { padding: 1rem; flex-direction: column; gap: 0.4rem; text-align: center; }
+    .footer-brand { font-size: 0.6rem !important; letter-spacing: 0.1em !important; white-space: nowrap; }
+    .footer-copy { font-size: 0.72rem !important; white-space: normal; max-width: 260px; margin: 0 auto; line-height: 1.4; }
     .footer-copy { font-size: 0.85rem !important; }
     .hero::before, .hero::after { display: none; }
   }
@@ -833,7 +835,7 @@
 
 <footer>
   <p class="footer-brand">Thomas U. Knapp <span>Photography</span></p>
-  <p class="footer-copy">Fine art prints from the desert Southwest.</p>
+  <p class="footer-copy">Fine art prints from the desert Southwest and beyond.</p>
   <p class="footer-brand">Las Vegas, <span>Nevada</span></p>
 </footer>
 
