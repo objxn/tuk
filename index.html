@@ -686,6 +686,26 @@
     .nav-links a { font-size: 1.1rem !important; letter-spacing: 0.2em; }
   }
 
+
+  .nav-close-item { display: none; }
+  .nav-close {
+    background: none;
+    border: 1px solid rgba(196,98,58,0.4);
+    color: var(--terra-light);
+    font-size: 1.2rem;
+    cursor: pointer;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+  @media (max-width: 600px) {
+    .nav-close-item { display: flex; justify-content: center; }
+  }
+
 </style>
 </head>
 <body>
@@ -694,6 +714,7 @@
   <a href="#" class="nav-logo">T<span>.</span>U<span>.</span>K<span>.</span></a>
   <button class="nav-hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">&#9776;</button>
   <ul class="nav-links">
+    <li class="nav-close-item"><button class="nav-close" onclick="document.querySelector('.nav-links').classList.remove('open')" aria-label="Close">&#10005;</button></li>
     <li><a href="#">Portfolio</a></li>
     <li><a href="#">Landscapes</a></li>
     <li><a href="#">Wildlife</a></li>
