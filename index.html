@@ -457,79 +457,6 @@
   }
   .loc-badge-dot { width: 6px; height: 6px; background: var(--sage); border-radius: 50%; animation: pulse 2.5s ease-in-out infinite; }
 
-  .image-strip { padding: 0 4rem 3rem; max-width: 1200px; margin: 0 auto; }
-  .strip-label {
-    font-family: var(--sans);
-    font-size: 0.55rem;
-    letter-spacing: 0.35em;
-    text-transform: uppercase;
-    color: var(--faint-text);
-    margin-bottom: 1.5rem;
-  }
-  .strip-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3px; height: 180px; }
-  .strip-item { position: relative; overflow: hidden; }
-
-  .strip-item-1 { background: linear-gradient(165deg, #1a1008 0%, #2a1a10 30%, #3d2212 55%, #4a2a18 70%, #2e1a0e 100%); }
-  .strip-item-1::before {
-    content: '';
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse 70% 40% at 40% 70%, rgba(196,98,58,0.25) 0%, transparent 60%),
-      radial-gradient(ellipse 30% 60% at 80% 20%, rgba(122,60,25,0.15) 0%, transparent 50%);
-    z-index: 0;
-  }
-  .strip-item-1 .strata-art {
-    position: absolute; inset: 0; z-index: 0;
-    background-image:
-      repeating-linear-gradient(
-        -2deg,
-        transparent 0px, transparent 28px,
-        rgba(196,98,58,0.07) 28px, rgba(196,98,58,0.07) 30px,
-        transparent 30px, transparent 54px,
-        rgba(140,70,30,0.05) 54px, rgba(140,70,30,0.05) 57px
-      );
-  }
-
-  .strip-item-2 { background: linear-gradient(150deg, #0e1208 0%, #18200e 50%, #1a2212 100%); }
-  .strip-item-2::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: radial-gradient(ellipse 80% 60% at 50% 60%, rgba(122,140,106,0.15) 0%, transparent 70%);
-  }
-
-  .strip-item-3 { background: linear-gradient(135deg, #0e1218 0%, #141e2a 50%, #1a2232 100%); }
-  .strip-item-3::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: radial-gradient(ellipse 60% 80% at 40% 30%, rgba(74,107,138,0.18) 0%, transparent 60%);
-  }
-
-  .strip-caption {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    padding: 1rem;
-    font-family: var(--sans);
-    font-size: 0.52rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--sand-dim);
-    background: linear-gradient(to top, rgba(17,15,12,0.75), transparent);
-    opacity: 0;
-    transition: opacity 0.35s;
-    display: flex;
-    align-items: flex-end;
-    height: 60%;
-    z-index: 2;
-  }
-  .strip-item:hover .strip-caption { opacity: 1; }
-  .strip-item img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    filter: grayscale(10%) brightness(0.7) saturate(1.15);
-    transition: filter 0.5s, transform 0.6s;
-    position: relative; z-index: 1;
-  }
-  .strip-item:hover img { filter: grayscale(0%) brightness(0.8) saturate(1.25); transform: scale(1.04); }
 
   footer {
     border-top: 1px solid rgba(196,98,58,0.2);
@@ -688,6 +615,39 @@
   .success-title { font-size: 3rem !important; font-weight: 500; }
   .success-msg { font-size: 1.25rem !important; font-weight: 500; }
 
+
+  /* ---- RED ROCK MOUNTAIN PHOTO ---- */
+  .rr-photo {
+    position: relative;
+    width: 100%;
+    height: 420px;
+    overflow: hidden;
+  }
+  .rr-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 45%;
+    display: block;
+    filter: brightness(0.82) saturate(1.1) contrast(1.05);
+  }
+  .rr-photo::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 120px;
+    background: linear-gradient(to top, #110f0c, transparent);
+    pointer-events: none;
+  }
+  .rr-photo::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 80px;
+    background: linear-gradient(to bottom, #110f0c, transparent);
+    pointer-events: none;
+  }
+
 </style>
 </head>
 <body>
@@ -722,6 +682,15 @@
   </div>
 </section>
 
+
+<!-- Red Rock Canyon mountain photo -->
+<div class="rr-photo">
+  <img
+    src="https://images.unsplash.com/photo-1656042687688-78bb8b1b6a31?fm=jpg&q=85&w=2400&auto=format&fit=crop&crop=center"
+    alt="Red Rock Canyon mountains, Nevada"
+    loading="eager"
+  >
+</div>
 
 <main>
   <div class="divider reveal">
@@ -867,22 +836,6 @@
     </div>
   </div>
 
-  <div class="image-strip reveal">
-    <p class="strip-label">From the Field</p>
-    <div class="strip-grid">
-      <div class="strip-item strip-item-1">
-        <div class="strata-art"></div>
-        <img src="https://cdn.goodgallery.com/09be408f-1727-4b60-a7db-8a00e7f73eb7/r/0800/1ss1rw81/gqpcld0twee.jpg" alt="Red Rock Canyon landscape" loading="lazy" onerror="this.style.display='none'">
-        <div class="strip-caption">Red Rock Canyon</div>
-      </div>
-      <div class="strip-item strip-item-2">
-        <div class="strip-caption">Wildlife Studies</div>
-      </div>
-      <div class="strip-item strip-item-3">
-        <div class="strip-caption">Desert Sky</div>
-      </div>
-    </div>
-  </div>
 </main>
 
 <footer>
