@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Thomas U. Knapp Photography</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --terra: #c4623a;
+    --terra-light: #e08058;
+    --terra-dim: #8a3f22;
+    --terra-pale: #f0a070;
+    --ink: #110f0c;
+    --ink-mid: #1c1710;
+    --ink-soft: #2a2018;
+    --sand: #ede0cc;
+    --sand-dim: #c0aa8a;
+    --sand-muted: #7d6e58;
+    --sage: #7a8c6a;
+    --sage-dim: #4e5c42;
+    --stone: #3d3228;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Montserrat', sans-serif;
+
+    /* ---- LIGHT THEME OVERRIDES ---- */
+    --page-bg: #110f0c;
+    --nav-bg-start: rgba(17,15,12,0.97);
+    --nav-bg-end: rgba(17,15,12,0);
+    --body-text: #ede0cc;
+    --heading-text: #ede0cc;
+    --muted-text: #c0aa8a;
+    --faint-text: #7d6e58;
+    --card-bg: transparent;
+    --card-border: rgba(196,98,58,0.18);
+    --section-bg: transparent;
+    --footer-bg: #1a1a17;
+    --input-border: rgba(196,98,58,0.3);
+    --divider-line-color: var(--terra-dim);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--page-bg);
+    color: var(--body-text);
+    font-family: var(--serif);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 4rem;
+    background: linear-gradient(to bottom, var(--nav-bg-start) 0%, var(--nav-bg-end) 100%);
+  }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    color: var(--heading-text);
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+  .nav-logo span { color: var(--terra); }
+
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-family: var(--sans);
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted-text);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--terra); }
+
+  .hero {
+    position: relative;
+    height: auto;
+    min-height: 0;
+    padding: 7rem 2rem 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  /* Red Rock Canyon photo — full hero background */
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('https://images.unsplash.com/photo-1656042687688-78bb8b1b6a31?fm=jpg&q=80&w=2400&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center 40%;
+    background-repeat: no-repeat;
+  }
+
+  /* Darkness overlay on the canyon photo */
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to bottom,
+        rgba(17,15,12,0.72) 0%,
+        rgba(17,15,12,0.42) 28%,
+        rgba(17,15,12,0.28) 52%,
+        rgba(17,15,12,0.52) 78%,
+        rgba(17,15,12,0.88) 100%
+      ),
+      radial-gradient(ellipse 80% 40% at 50% 100%, rgba(196,98,58,0.12) 0%, transparent 60%);
+  }
+
+  .hero-stars { display: none; }
+  .hero-mountain { display: none; }
+  .hero-glow { display: none; }
+  .hero-strata { display: none; }
+
+  .hero::before, .hero::after {
+    content: '';
+    position: absolute;
+    width: 80px; height: 80px;
+    border-color: var(--terra-dim);
+    border-style: solid;
+    opacity: 0.3;
+  }
+  .hero::before { top: 8rem; left: 4rem; border-width: 1px 0 0 1px; }
+  .hero::after  { bottom: 5rem; right: 4rem; border-width: 0 1px 1px 0; }
+
+  .hero-content {
+    text-align: center;
+    z-index: 2;
+    animation: fadeUp 1.2s ease both;
+    padding: 0 2rem;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--sans);
+    font-size: 0.58rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--terra-dim);
+    margin-bottom: 1rem;
+  }
+  .hero-eyebrow::before, .hero-eyebrow::after {
+    content: '';
+    display: block;
+    width: 30px; height: 1px;
+    background: var(--terra-dim);
+  }
+
+  .hero-title {
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 300;
+    line-height: 0.95;
+    color: var(--heading-text);
+    margin-bottom: 0.8rem;
+  }
+  .hero-title em { font-style: italic; color: var(--terra); }
+
+  .hero-subtitle {
+    font-size: 1.05rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--muted-text);
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  .hero-tags {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+  .hero-tag {
+    font-family: var(--sans);
+    font-size: 0.52rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--faint-text);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .hero-tag::before {
+    content: '';
+    display: block;
+    width: 4px; height: 4px;
+    background: var(--terra);
+    border-radius: 50%;
+  }
+
+
+  main { position: relative; z-index: 1; padding-top: 0; }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0 4rem;
+    margin-bottom: 1.5rem;
+  }
+  .divider-line { flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(196,98,58,0.4), transparent); }
+  .divider-mark {
+    font-family: var(--sans);
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--terra-dim);
+  }
+
+  .contact-section {
+    padding: 3rem 4rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .contact-info { animation: fadeUp 1s 0.2s ease both; }
+
+  .section-label {
+    font-family: var(--sans);
+    font-size: 0.58rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--terra-dim);
+    margin-bottom: 0.6rem;
+  }
+
+  .contact-heading {
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 0.75rem;
+    color: var(--heading-text);
+  }
+  .contact-heading em { font-style: italic; color: var(--terra); }
+
+  .contact-description {
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.85;
+    color: var(--muted-text);
+    margin-bottom: 1.5rem;
+    max-width: 420px;
+  }
+
+  .offerings {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(255,200,150,0.3);
+    background: transparent;
+  }
+  .offering-item {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid rgba(196,98,58,0.1);
+    transition: background 0.25s;
+  }
+  .offering-item:last-child { border-bottom: none; }
+  .offering-item:hover { background: rgba(196,98,58,0.08); }
+  .offering-dot {
+    width: 6px; height: 6px;
+    background: var(--terra-dim);
+    border-radius: 50%;
+    flex-shrink: 0;
+    transition: background 0.25s;
+  }
+  .offering-item:hover .offering-dot { background: var(--terra-light); }
+  .offering-text { font-size: 0.85rem; color: var(--muted-text); font-family: var(--sans); font-weight: 300; letter-spacing: 0.04em; }
+  .offering-tag {
+    margin-left: auto;
+    flex-shrink: 0;
+    width: 130px;
+    text-align: center;
+    font-family: var(--sans);
+    font-size: 0.5rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--sage);
+    border: 1px solid var(--sage-dim);
+    padding: 0.2rem 0.5rem;
+    border-radius: 2px;
+  }
+
+  .contact-details { border-top: 1px solid rgba(196,98,58,0.25); padding-top: 1.25rem; }
+  .contact-detail-item { display: flex; flex-direction: column; gap: 0.15rem; margin-bottom: 0.75rem; }
+  .detail-label {
+    font-family: var(--sans);
+    font-size: 0.52rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--terra-dim);
+  }
+  .detail-value {
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: var(--muted-text);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .detail-value:hover { color: var(--terra); }
+
+  .contact-form-wrap { animation: fadeUp 1s 0.4s ease both; }
+  .form-header { margin-bottom: 1.25rem; }
+  .form-intro { font-size: 1rem; font-style: italic; color: var(--muted-text); line-height: 1.75; }
+
+  .contact-form { display: flex; flex-direction: column; gap: 1.1rem; }
+
+  .field-group { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  .field { display: flex; flex-direction: column; gap: 0.5rem; }
+
+  .field label {
+    font-family: var(--sans);
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--terra-dim);
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(196,98,58,0.3);
+    padding: 0.75rem 0;
+    color: var(--heading-text);
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-weight: 300;
+    outline: none;
+    transition: border-color 0.3s;
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  .field select {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a3f22' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.25rem center;
+    padding-right: 1.5rem;
+  }
+  .field select option { background: #110f0c; color: var(--heading-text); }
+  .field input::placeholder, .field textarea::placeholder { color: var(--faint-text); font-style: italic; }
+  .field input:focus, .field select:focus, .field textarea:focus { border-bottom-color: var(--terra-light); }
+  .field textarea { resize: none; min-height: 120px; line-height: 1.7; }
+
+  .form-submit { display: flex; align-items: center; gap: 1.5rem; margin-top: 0.25rem; }
+
+  .btn-submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2.5rem;
+    border: 1px solid rgba(196,98,58,0.45);
+    background: transparent;
+    color: var(--terra-light);
+    font-family: var(--sans);
+    font-size: 0.62rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.35s;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-submit::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(196,98,58,0.1);
+    transform: translateX(-100%);
+    transition: transform 0.35s ease;
+  }
+  .btn-submit:hover::before { transform: translateX(0); }
+  .btn-submit:hover { border-color: var(--terra); color: var(--terra-pale); }
+  .btn-arrow { transition: transform 0.3s; }
+  .btn-submit:hover .btn-arrow { transform: translateX(4px); }
+
+  .form-note { font-size: 0.75rem; font-style: italic; color: var(--faint-text); line-height: 1.6; }
+
+  .location-bar { max-width: 1200px; margin: 0 auto; padding: 0 4rem 2.5rem; }
+  .location-inner {
+    border: 1px solid rgba(196,98,58,0.2);
+    padding: 1.25rem 2rem;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 2.5rem;
+    background: transparent;
+  }
+  .loc-icon {
+    width: 42px; height: 42px;
+    border: 1px solid rgba(196,98,58,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .loc-icon svg { width: 18px; height: 18px; stroke: var(--terra); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .loc-text h4 {
+    font-family: var(--sans);
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--terra);
+    margin-bottom: 0.35rem;
+  }
+  .loc-text p { font-size: 0.9rem; font-weight: 300; color: var(--muted-text); font-style: italic; }
+  .loc-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--sans);
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--sage);
+  }
+  .loc-badge-dot { width: 6px; height: 6px; background: var(--sage); border-radius: 50%; animation: pulse 2.5s ease-in-out infinite; }
+
+  .image-strip { padding: 0 4rem 3rem; max-width: 1200px; margin: 0 auto; }
+  .strip-label {
+    font-family: var(--sans);
+    font-size: 0.55rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--faint-text);
+    margin-bottom: 1.5rem;
+  }
+  .strip-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3px; height: 180px; }
+  .strip-item { position: relative; overflow: hidden; }
+
+  .strip-item-1 { background: linear-gradient(165deg, #1a1008 0%, #2a1a10 30%, #3d2212 55%, #4a2a18 70%, #2e1a0e 100%); }
+  .strip-item-1::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 40% at 40% 70%, rgba(196,98,58,0.25) 0%, transparent 60%),
+      radial-gradient(ellipse 30% 60% at 80% 20%, rgba(122,60,25,0.15) 0%, transparent 50%);
+    z-index: 0;
+  }
+  .strip-item-1 .strata-art {
+    position: absolute; inset: 0; z-index: 0;
+    background-image:
+      repeating-linear-gradient(
+        -2deg,
+        transparent 0px, transparent 28px,
+        rgba(196,98,58,0.07) 28px, rgba(196,98,58,0.07) 30px,
+        transparent 30px, transparent 54px,
+        rgba(140,70,30,0.05) 54px, rgba(140,70,30,0.05) 57px
+      );
+  }
+
+  .strip-item-2 { background: linear-gradient(150deg, #0e1208 0%, #18200e 50%, #1a2212 100%); }
+  .strip-item-2::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 60%, rgba(122,140,106,0.15) 0%, transparent 70%);
+  }
+
+  .strip-item-3 { background: linear-gradient(135deg, #0e1218 0%, #141e2a 50%, #1a2232 100%); }
+  .strip-item-3::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 40% 30%, rgba(74,107,138,0.18) 0%, transparent 60%);
+  }
+
+  .strip-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 1rem;
+    font-family: var(--sans);
+    font-size: 0.52rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sand-dim);
+    background: linear-gradient(to top, rgba(17,15,12,0.75), transparent);
+    opacity: 0;
+    transition: opacity 0.35s;
+    display: flex;
+    align-items: flex-end;
+    height: 60%;
+    z-index: 2;
+  }
+  .strip-item:hover .strip-caption { opacity: 1; }
+  .strip-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: grayscale(10%) brightness(0.7) saturate(1.15);
+    transition: filter 0.5s, transform 0.6s;
+    position: relative; z-index: 1;
+  }
+  .strip-item:hover img { filter: grayscale(0%) brightness(0.8) saturate(1.25); transform: scale(1.04); }
+
+  footer {
+    border-top: 1px solid rgba(196,98,58,0.2);
+    background: #1a1a17;
+    padding: 1.5rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .footer-brand { font-family: var(--sans); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--faint-text); }
+  .footer-brand span { color: var(--terra-dim); }
+  .footer-copy { font-size: 0.78rem; color: var(--faint-text); font-style: italic; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes scrollPulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.9; } }
+  @keyframes pulse { 0%, 100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.3); } }
+
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.9s ease, transform 0.9s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  .success-overlay { display: none; text-align: center; padding: 3rem 2rem; animation: fadeUp 0.6s ease both; }
+  .success-overlay.show { display: block; }
+  .success-icon { width: 52px; height: 52px; border: 1px solid var(--terra-dim); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 1.3rem; color: var(--terra-light); }
+  .success-title { font-size: 2rem; font-weight: 300; margin-bottom: 0.75rem; color: var(--heading-text); }
+  .success-title em { font-style: italic; color: var(--terra-pale); }
+  .success-msg { font-size: 0.95rem; font-weight: 300; color: var(--muted-text); line-height: 1.7; font-style: italic; }
+
+  @media (max-width: 900px) {
+    nav { padding: 1.25rem 2rem; }
+    .nav-links { gap: 1.5rem; }
+    .contact-section { grid-template-columns: 1fr; gap: 4rem; padding: 4rem 2rem 6rem; }
+    .image-strip, .location-bar { padding-left: 2rem; padding-right: 2rem; }
+    .strip-grid { grid-template-columns: 1fr 1fr; }
+    .strip-item-3 { display: none; }
+    .location-inner { grid-template-columns: auto 1fr; }
+    .loc-badge { display: none; }
+    footer { padding: 2rem; flex-direction: column; gap: 1rem; text-align: center; }
+    .divider { padding: 0 2rem; }
+  }
+  @media (max-width: 600px) {
+    .field-group { grid-template-columns: 1fr; }
+    .hero::before, .hero::after { display: none; }
+    .nav-links { display: none; }
+  }
+
+
+  /* Nav */
+  .nav-logo { font-size: 1.2rem; font-weight: 500; }
+  .nav-links a { font-size: 0.75rem; font-weight: 500; }
+
+  /* Hero */
+  .hero-eyebrow { font-size: 0.75rem; font-weight: 500; }
+  .hero-title { font-size: clamp(4.5rem, 10vw, 8.5rem); font-weight: 400; }
+  .hero-subtitle { font-size: 1.3rem; font-weight: 400; }
+  .hero-tag { font-size: 0.68rem; font-weight: 500; }
+  .scroll-hint span { font-size: 0.68rem; font-weight: 500; }
+
+  /* Divider */
+  .divider-mark { font-size: 0.72rem; font-weight: 500; }
+
+  /* Contact section */
+  .section-label { font-size: 0.72rem; font-weight: 600; }
+  .contact-heading { font-size: clamp(2.8rem, 5vw, 4.2rem); font-weight: 400; }
+  .contact-description { font-size: 1.15rem; font-weight: 400; line-height: 1.85; }
+
+  /* Offerings */
+  .offering-text { font-size: 1rem !important; font-weight: 500 !important; }
+  .offering-tag { font-size: 0.62rem; font-weight: 500; }
+
+  /* Contact details */
+  .detail-label { font-size: 0.65rem; font-weight: 600; }
+  .detail-value { font-size: 1.1rem; font-weight: 400; }
+
+  /* Form */
+  .form-intro { font-size: 1.15rem; font-weight: 400; }
+  .field label { font-size: 0.68rem; font-weight: 600; }
+  .field input,
+  .field select,
+  .field textarea { font-size: 1.1rem; font-weight: 400; }
+  .btn-submit { font-size: 0.78rem; font-weight: 600; }
+  .form-note { font-size: 0.9rem; font-weight: 400; }
+
+  /* Location bar */
+  .loc-text h4 { font-size: 0.72rem; font-weight: 600; }
+  .loc-text p { font-size: 1.05rem; font-weight: 400; }
+  .loc-badge { font-size: 0.68rem; font-weight: 500; }
+
+  /* Strip */
+  .strip-label { font-size: 0.68rem; font-weight: 600; }
+  .strip-caption { font-size: 0.65rem; font-weight: 500; }
+
+  /* Footer */
+  .footer-brand { font-size: 0.72rem; font-weight: 600; }
+  .footer-copy { font-size: 0.9rem; font-weight: 400; }
+
+  /* Success */
+  .success-title { font-size: 2.4rem; font-weight: 400; }
+  .success-msg { font-size: 1.1rem; font-weight: 400; }
+
+
+  /* ---- GLOBAL TYPOGRAPHY BOOST ---- */
+  body { font-size: 20px; font-weight: 500; }
+
+  /* Nav */
+  .nav-logo { font-size: 1.4rem !important; font-weight: 600; letter-spacing: 0.25em; }
+  .nav-links a { font-size: 0.85rem !important; font-weight: 600; letter-spacing: 0.2em; }
+
+  /* Hero */
+  .hero-eyebrow { font-size: 0.95rem !important; font-weight: 700; letter-spacing: 0.4em; }
+  .hero-title { font-size: clamp(5rem, 12vw, 10rem) !important; font-weight: 500; }
+  .hero-subtitle { font-size: 1.5rem !important; font-weight: 500; line-height: 1.6; }
+  .hero-tag { font-size: 0.85rem !important; font-weight: 700; letter-spacing: 0.2em; }
+  .scroll-hint span { font-size: 0.85rem !important; font-weight: 600; }
+
+  /* Divider */
+  .divider-mark { font-size: 0.9rem !important; font-weight: 700; letter-spacing: 0.35em; }
+
+  /* Contact section */
+  .section-label { font-size: 0.9rem !important; font-weight: 700; letter-spacing: 0.35em; }
+  .contact-heading { font-size: clamp(3.2rem, 6vw, 5rem) !important; font-weight: 500; }
+  .contact-description { font-size: 1.25rem !important; font-weight: 500; line-height: 1.85; }
+
+  /* Offerings */
+  .offering-text { font-size: 1.15rem !important; font-weight: 600 !important; }
+  .offering-tag { font-size: 0.72rem !important; font-weight: 700; }
+
+  /* Contact details */
+  .detail-label { font-size: 0.78rem !important; font-weight: 700; letter-spacing: 0.25em; }
+  .detail-value { font-size: 1.25rem !important; font-weight: 500; }
+
+  /* Form */
+  .form-intro { font-size: 1.25rem !important; font-weight: 500; line-height: 1.75; }
+  .field label { font-size: 0.82rem !important; font-weight: 700; letter-spacing: 0.2em; }
+  .field input,
+  .field select,
+  .field textarea { font-size: 1.2rem !important; font-weight: 500; }
+  .btn-submit { font-size: 0.9rem !important; font-weight: 700; letter-spacing: 0.25em; padding: 1.1rem 2.8rem; }
+  .form-note { font-size: 1rem !important; font-weight: 500; }
+
+  /* Location bar */
+  .loc-text h4 { font-size: 0.88rem !important; font-weight: 700; letter-spacing: 0.2em; }
+  .loc-text p { font-size: 1.2rem !important; font-weight: 500; }
+  .loc-badge { font-size: 0.82rem !important; font-weight: 700; }
+
+  /* Strip */
+  .strip-label { font-size: 0.85rem !important; font-weight: 700; letter-spacing: 0.3em; }
+  .strip-caption { font-size: 0.78rem !important; font-weight: 600; }
+
+  /* Footer */
+  .footer-brand { font-size: 0.88rem !important; font-weight: 700; letter-spacing: 0.2em; }
+  .footer-copy { font-size: 1.05rem !important; font-weight: 500; }
+
+  /* Success */
+  .success-title { font-size: 3rem !important; font-weight: 500; }
+  .success-msg { font-size: 1.25rem !important; font-weight: 500; }
+
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">T<span>.</span>U<span>.</span>K<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#">Portfolio</a></li>
+    <li><a href="#">Landscapes</a></li>
+    <li><a href="#">Wildlife</a></li>
+    <li><a href="#">Black &amp; White</a></li>
+    <li><a href="#" class="active">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Thomas U. Knapp Photography</p>
+    <h1 class="hero-title">The Wild<br><em>Captured</em></h1>
+    <p class="hero-subtitle">Fine art prints from the desert Southwest — wildlife, red rock landscapes, and the raw beauty of Nevada's canyon country.</p>
+    <div class="hero-tags">
+      <span class="hero-tag">Wildlife</span>
+      <span class="hero-tag">Landscapes</span>
+      <span class="hero-tag">Red Rock Canyon</span>
+      <span class="hero-tag">Fine Art Prints</span>
+    </div>
+  </div>
+
+  </div>
+</section>
+
+
+<main>
+  <div class="divider reveal">
+    <div class="divider-line"></div>
+    <span class="divider-mark">Commission a Print</span>
+    <div class="divider-line"></div>
+  </div>
+
+  <section class="contact-section">
+    <div class="contact-info reveal">
+      <p class="section-label">Get in Touch</p>
+      <h2 class="contact-heading">Bring the<br><em>Desert Home</em></h2>
+      <p class="contact-description">
+        Each print captures a moment in the Mojave and beyond — from a bighorn sheep on a canyon ledge
+        to Red Rock's ancient sandstone lit by the last light of day.
+        Custom sizes and personal consultations always welcome.
+      </p>
+
+      <div class="offerings">
+        <div class="offering-item">
+          <div class="offering-dot"></div>
+          <span class="offering-text">Canvas Gallery Wraps</span>
+          <span class="offering-tag">Custom Sizes</span>
+        </div>
+        <div class="offering-item">
+          <div class="offering-dot"></div>
+          <span class="offering-text">Fine Art Giclée Prints</span>
+          <span class="offering-tag">Archival</span>
+        </div>
+        <div class="offering-item">
+          <div class="offering-dot"></div>
+          <span class="offering-text">Acrylic Face Mounts</span>
+          <span class="offering-tag">Museum Quality</span>
+        </div>
+        <div class="offering-item">
+          <div class="offering-dot"></div>
+          <span class="offering-text">Brushed Metal Prints</span>
+          <span class="offering-tag">Modern</span>
+        </div>
+        <div class="offering-item">
+          <div class="offering-dot"></div>
+          <span class="offering-text">Custom Framing &amp; Consultation</span>
+          <span class="offering-tag">In Person</span>
+        </div>
+      </div>
+
+      <div class="contact-details">
+        <div class="contact-detail-item">
+          <span class="detail-label">Photographer</span>
+          <span class="detail-value">Thomas U. Knapp</span>
+        </div>
+        <div class="contact-detail-item">
+          <span class="detail-label">Location</span>
+          <span class="detail-value">Las Vegas, NV 89135</span>
+        </div>
+        <div class="contact-detail-item">
+          <span class="detail-label">Email</span>
+          <a href="mailto:tukphotography@cox.net" class="detail-value">tukphotography@cox.net</a>
+        </div>
+        <div class="contact-detail-item">
+          <span class="detail-label">Phone</span>
+          <a href="tel:7023012662" class="detail-value">702.301.2662</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form-wrap reveal">
+      <div class="form-header">
+        <p class="section-label">Send a Message</p>
+        <p class="form-intro">New images from the field are added regularly. Tell me about your space and the wildlife or landscape that moves you.</p>
+      </div>
+
+      <form class="contact-form" id="contactForm" novalidate>
+        <div class="field-group">
+          <div class="field">
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" name="fname" placeholder="Your first name" required>
+          </div>
+          <div class="field">
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" name="lname" placeholder="Your last name">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required>
+        </div>
+
+        <div class="field">
+          <label for="phone">Phone (Optional)</label>
+          <input type="tel" id="phone" name="phone" placeholder="Your phone number">
+        </div>
+
+        <div class="field">
+          <label for="interest">Collection of Interest</label>
+          <select id="interest" name="interest">
+            <option value="" disabled selected>Select a collection…</option>
+            <option>Wildlife — Desert Southwest</option>
+            <option>Landscapes — Red Rock Canyon</option>
+            <option>Landscapes — Scenic Nevada</option>
+            <option>Black &amp; White Studies</option>
+            <option>Custom Print Order</option>
+            <option>Personal Consultation</option>
+            <option>General Inquiry</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="message">Your Message</label>
+          <textarea id="message" name="message" placeholder="Describe your space, or a specific animal or landscape you're drawn to. I'll suggest prints that would work beautifully." required></textarea>
+        </div>
+
+        <div class="form-submit">
+          <button type="submit" class="btn-submit">
+            Send Inquiry
+            <svg class="btn-arrow" width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 5h12M9 1l4 4-4 4" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <p class="form-note">Typically responds<br>within 24–48 hours.</p>
+        </div>
+      </form>
+
+      <div class="success-overlay" id="successMsg">
+        <div class="success-icon">✦</div>
+        <h3 class="success-title">Thank <em>you</em></h3>
+        <p class="success-msg">Your message has been received.<br>I'll be in touch within 24–48 hours.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="location-bar reveal">
+    <div class="location-inner">
+      <div class="loc-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+      </div>
+      <div class="loc-text">
+        <h4>Based Near Red Rock Canyon</h4>
+        <p>Las Vegas, Nevada — minutes from the canyon's trails, wildlife corridors, and those ancient sandstone faces.</p>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="image-strip reveal">
+    <p class="strip-label">From the Field</p>
+    <div class="strip-grid">
+      <div class="strip-item strip-item-1">
+        <div class="strata-art"></div>
+        <img src="https://cdn.goodgallery.com/09be408f-1727-4b60-a7db-8a00e7f73eb7/r/0800/1ss1rw81/gqpcld0twee.jpg" alt="Red Rock Canyon landscape" loading="lazy" onerror="this.style.display='none'">
+        <div class="strip-caption">Red Rock Canyon</div>
+      </div>
+      <div class="strip-item strip-item-2">
+        <div class="strip-caption">Wildlife Studies</div>
+      </div>
+      <div class="strip-item strip-item-3">
+        <div class="strip-caption">Desert Sky</div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <p class="footer-brand">Thomas U. Knapp <span>Photography</span></p>
+  <p class="footer-copy">Fine art prints from the desert Southwest.</p>
+  <p class="footer-brand">Las Vegas, <span>Nevada</span></p>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const fname = document.getElementById('fname').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const msg   = document.getElementById('message').value.trim();
+    if (!fname || !email || !msg) {
+      const first = [
+        !fname ? document.getElementById('fname') : null,
+        !email ? document.getElementById('email') : null,
+        !msg   ? document.getElementById('message') : null
+      ].find(Boolean);
+      if (first) {
+        first.focus();
+        first.style.borderBottomColor = '#c4623a';
+        setTimeout(() => first.style.borderBottomColor = '', 2000);
+      }
+      return;
+    }
+    this.style.display = 'none';
+    document.getElementById('successMsg').classList.add('show');
+  });
+</script>
+</body>
+</html>
